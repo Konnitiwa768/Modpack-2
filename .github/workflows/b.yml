@@ -24,7 +24,7 @@ jobs:
           mkdir -p mods
           UA="Mozilla/5.0"
           curl -L -A "$UA" -o mods/IceAndFire.jar "https://media.forgecdn.net/files/4614/457/iceandfire-2.1.12-1.16.5.jar"
-          curl -L -A "$UA" -o mods/Create.jar "https://media.forgecdn.net/files/3536/25/create-mc1.16.5_v0.3.2e.jar"
+          curl -L -A "$UA" -o mods/Create.jar "https://media.forgecdn.net/files/3419/412/create-mc1.16.5_v0.3.2d.jar"
           curl -L -A "$UA" -o mods/JEI.jar "https://media.forgecdn.net/files/5846/870/jei-1.16.5-7.9.3.87.jar"
           curl -L -A "$UA" -o mods/SpartanWeaponry.jar "https://media.forgecdn.net/files/5125/478/SpartanWeaponry-1.16.5-2.1.0-beta.jar"
           curl -L -A "$UA" -o mods/FarmersDelight.jar "https://media.forgecdn.net/files/3765/350/FarmersDelight-1.16.5-0.5.4.jar"
