@@ -23,14 +23,14 @@ jobs:
         run: |
           mkdir -p mods
           UA="Mozilla/5.0"
-          curl -L -A "$UA" -o mods/IceAndFire.jar "https://media.forgecdn.net/files/4614/457/iceandfire-2.1.12-1.16.5.jar"
-          curl -L -A "$UA" -o mods/Create.jar "https://media.forgecdn.net/files/3419/412/create-mc1.16.5_v0.3.2d.jar"
-          curl -L -A "$UA" -o mods/JEI.jar "https://media.forgecdn.net/files/5846/870/jei-1.16.5-7.9.3.87.jar"
-          curl -L -A "$UA" -o mods/SpartanWeaponry.jar "https://media.forgecdn.net/files/5125/478/SpartanWeaponry-1.16.5-2.1.0-beta.jar"
-          curl -L -A "$UA" -o mods/FarmersDelight.jar "https://media.forgecdn.net/files/3765/350/FarmersDelight-1.16.5-0.5.4.jar"
-          curl -L -A "$UA" -o mods/SpartanFire.jar "https://media.forgecdn.net/files/3858/947/SpartanFire-1.16.5-2.0.3.jar"
-          curl -L -A "$UA" -o mods/Lycanitesmobs.jar "https://media.forgecdn.net/files/5982/776/LycanitesMobs-1.16.5-2.0.8.7.jar"
-          curl -L -A "$UA" -o mods/firstaid.jar "https://media.forgecdn.net/files/3740/166/FirstAid-1.16.5-2.1.6.jar"
+          curl -L -A "$UA" -o mods/IceAndFire.jar "https://media.forgecdn.net/files/4614457/iceandfire-2.1.12-1.16.5.jar"
+          curl -L -A "$UA" -o mods/Create.jar "https://media.forgecdn.net/files/3419412/create-mc1.16.5_v0.3.2d.jar"
+          curl -L -A "$UA" -o mods/JEI.jar "https://media.forgecdn.net/files/5846870/jei-1.16.5-7.9.3.87.jar"
+          curl -L -A "$UA" -o mods/SpartanWeaponry.jar "https://media.forgecdn.net/files/5125478/SpartanWeaponry-1.16.5-2.1.0-beta.jar"
+          curl -L -A "$UA" -o mods/FarmersDelight.jar "https://media.forgecdn.net/files/3765350/FarmersDelight-1.16.5-0.5.4.jar"
+          curl -L -A "$UA" -o mods/SpartanFire.jar "https://media.forgecdn.net/files/3858947/SpartanFire-1.16.5-2.0.3.jar"
+          curl -L -A "$UA" -o mods/Lycanitesmobs.jar "https://media.forgecdn.net/files/5982776/LycanitesMobs-1.16.5-2.0.8.7.jar"
+          curl -L -A "$UA" -o mods/firstaid.jar "https://media.forgecdn.net/files/3740166/FirstAid-1.16.5-2.1.6.jar"
 
       - name: Commit and Push Changes
         run: |
