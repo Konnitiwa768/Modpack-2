@@ -30,14 +30,14 @@ jobs:
             curl -fL "$url" -o "mods/$name" || echo "Failed to download $name"
           }
 
-          download_mod IceAndFire.jar "https://media.forgecdn.net/files/4614/457/IceAndFire-2.1.12-1.16.5.jar"
-          download_mod Create.jar "https://media.forgecdn.net/files/3536/25/Create-0.3.2g.jar"
-          download_mod JEI.jar "https://media.forgecdn.net/files/5846/870/jei-1.16.5-7.7.1.152.jar"
-          download_mod SpartanWeaponry.jar "https://media.forgecdn.net/files/5125/478/SpartanWeaponry-2.1.0-beta.jar"
-          download_mod FarmersDelight.jar "https://media.forgecdn.net/files/3765/350/FarmersDelight-0.5.4.jar"
-          download_mod SpartanFire.jar "https://media.forgecdn.net/files/3858/947/SpartanFire-0.08.jar"
-          download_mod Lycanitesmobs.jar "https://media.forgecdn.net/files/5982/776/LycanitesMobs-1.16.5-2.3.2.3.jar"
-          download_mod firstaid.jar "https://media.forgecdn.net/files/3740/166/FirstAid-1.16.5-2.1.6.jar"
+          download_mod IceAndFire.jar "https://mediafilez.forgecdn.net/files/4614/457/IceAndFire-2.1.12-1.16.5.jar"
+          download_mod Create.jar "https://mediafilez.forgecdn.net/files/3536/25/Create-0.3.2g.jar"
+          download_mod JEI.jar "https://mediafilez.forgecdn.net/files/5846/870/jei-1.16.5-7.7.1.152.jar"
+          download_mod SpartanWeaponry.jar "https://mediafilez.forgecdn.net/files/5125/478/SpartanWeaponry-2.1.0-beta.jar"
+          download_mod FarmersDelight.jar "https://mediafilez.forgecdn.net/files/3765/350/FarmersDelight-0.5.4.jar"
+          download_mod SpartanFire.jar "https://mediafilez.forgecdn.net/files/3858/947/SpartanFire-0.08.jar"
+          download_mod Lycanitesmobs.jar "https://mediafilez.forgecdn.net/files/5982/776/LycanitesMobs-1.16.5-2.3.2.3.jar"
+          download_mod firstaid.jar "https://mediafilez.forgecdn.net/files/3740/166/FirstAid-1.16.5-2.1.6.jar"
 
           echo "OptiFineはライセンス上、自動ダウンロードできません。手動で mods に追加してください。" > mods/README_OptiFine.txt
 
