@@ -22,17 +22,29 @@ jobs:
       - name: Download Mods (excluding OptiFine)
         run: |
           mkdir -p mods
-          curl -L -o mods/IceAndFire.jar "https://www.curseforge.com/minecraft/mc-mods/ice-and-fire-dragons/download/4614457"
-          curl -L -o mods/Create.jar "https://www.curseforge.com/minecraft/mc-mods/create/download/3536025"
-          curl -L -o mods/JEI.jar "https://www.curseforge.com/minecraft/mc-mods/jei/download/5846870"
-          curl -L -o mods/SpartanWeaponry.jar "https://www.curseforge.com/minecraft/mc-mods/spartan-weaponry/download/5125478"
-          curl -L -o mods/FarmersDelight.jar "https://www.curseforge.com/minecraft/mc-mods/farmers-delight/download/3765350"
-          curl -L -o mods/SpartanFire.jar "https://www.curseforge.com/minecraft/mc-mods/spartan-weaponry-ice-and-fire/download/3858947"
-          curl -L -o mods/Lycanitesmobs.jar "https://www.curseforge.com/minecraft/mc-mods/lycanites-mobs/download/5982776"
-          curl -L -o mods/firstaid.jar "https://www.curseforge.com/minecraft/mc-mods/first-aid/download/3740166"
+
+          download_mod() {
+            name="$1"
+            url="$2"
+            echo "Downloading $name..."
+            curl -fL "$url" -o "mods/$name" || echo "Failed to download $name"
+          }
+
+          download_mod IceAndFire.jar "https://media.forgecdn.net/files/4614/457/IceAndFire-2.1.12-1.16.5.jar"
+          download_mod Create.jar "https://media.forgecdn.net/files/3536/25/Create-0.3.2g.jar"
+          download_mod JEI.jar "https://media.forgecdn.net/files/5846/870/jei-1.16.5-7.7.1.152.jar"
+          download_mod SpartanWeaponry.jar "https://media.forgecdn.net/files/5125/478/SpartanWeaponry-2.1.0-beta.jar"
+          download_mod FarmersDelight.jar "https://media.forgecdn.net/files/3765/350/FarmersDelight-0.5.4.jar"
+          download_mod SpartanFire.jar "https://media.forgecdn.net/files/3858/947/SpartanFire-0.08.jar"
+          download_mod Lycanitesmobs.jar "https://media.forgecdn.net/files/5982/776/LycanitesMobs-1.16.5-2.3.2.3.jar"
+          download_mod firstaid.jar "https://media.forgecdn.net/files/3740/166/FirstAid-1.16.5-2.1.6.jar"
+
+          echo "OptiFineはライセンス上、自動ダウンロードできません。手動で mods に追加してください。" > mods/README_OptiFine.txt
+
       - name: Commit and Push Changes
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
-          git add .
-          git commit -m "Modファイルを更新" || echo "コミットする変更はありません"
-          git push origin HEAD:main
+          git add mods
+          git commit -m "Modファイルを更新（OptiFineを除く）" || echo "コミットする変更はありません"
+          git pull --rebase || echo "リベースに失敗しましたが、続行します"
+          git push origin HEAD:main || echo "Pushに失敗しました（競合の可能性あり）"
