@@ -1,0 +1,37 @@
+name: Download and Push Mods to Repo (with manual OptiFine)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  push_mods:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Git User
+        run: |
+          git config --global user.name "Your Name"
+          git config --global user.email "your-email@example.com"
+
+      - name: Download Mods (excluding OptiFine)
+        run: |
+          mkdir -p mods
+          curl -L -o mods/IceAndFire.jar "https://www.curseforge.com/minecraft/mc-mods/ice-and-fire-dragons/download/4614457"
+          curl -L -o mods/Create.jar "https://www.curseforge.com/minecraft/mc-mods/create/download/3536025"
+          curl -L -o mods/JEI.jar "https://www.curseforge.com/minecraft/mc-mods/jei/download/5846870"
+          curl -L -o mods/SpartanWeaponry.jar "https://www.curseforge.com/minecraft/mc-mods/spartan-weaponry/download/5125478"
+          curl -L -o mods/FarmersDelight.jar "https://www.curseforge.com/minecraft/mc-mods/farmers-delight/download/3765350"
+          curl -L -o mods/SpartanFire.jar "https://www.curseforge.com/minecraft/mc-mods/spartan-weaponry-ice-and-fire/download/3858947"
+          curl -L -o mods/Lycanitesmobs.jar "https://www.curseforge.com/minecraft/mc-mods/lycanites-mobs/download/5982776"
+      - name: Commit and Push Changes
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
+          git add .
+          git commit -m "Modファイルを更新" || echo "コミットする変更はありません"
+          git push origin HEAD:main

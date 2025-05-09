@@ -1,0 +1,44 @@
+name: Download and Push Mods to Repo (with gh)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  push_mods:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt update
+          sudo apt install gh -y
+
+      - name: Authenticate with GitHub CLI
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: Set Git Identity
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Download Mods
+        run: |
+          mkdir -p mods
+          curl -L -o mods/IceAndFire.jar "https://edge.forgecdn.net/files/4614/465/iceandfire-2.1.12-1.18.2.jar"
+          curl -L -o mods/Create.jar "https://edge.forgecdn.net/files/4371/807/create-0.5.0i-1.18.2.jar"
+          curl -L -o mods/JEI.jar "https://edge.forgecdn.net/files/3788/739/jei-1.18.2-9.7.0.195.jar"
+          curl -L -o mods/SpartanWeaponry.jar "https://edge.forgecdn.net/files/5256/293/SpartanWeaponry-3.0.5-all.jar"
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global credential.helper store
+          git add .
+          git commit -m "Modファイルを更新" || echo "変更なし"
+          git push -v origin main
