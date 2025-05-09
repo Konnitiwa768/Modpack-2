@@ -22,14 +22,15 @@ jobs:
       - name: Download Mods (excluding OptiFine)
         run: |
           mkdir -p mods
-          curl -L -o mods/IceAndFire.jar "https://www.curseforge.com/minecraft/mc-mods/ice-and-fire-dragons/download/4614457"
-          curl -L -o mods/Create.jar "https://www.curseforge.com/minecraft/mc-mods/create/download/3536025"
-          curl -L -o mods/JEI.jar "https://www.curseforge.com/minecraft/mc-mods/jei/download/5846870"
-          curl -L -o mods/SpartanWeaponry.jar "https://www.curseforge.com/minecraft/mc-mods/spartan-weaponry/download/5125478"
-          curl -L -o mods/FarmersDelight.jar "https://www.curseforge.com/minecraft/mc-mods/farmers-delight/download/3765350"
-          curl -L -o mods/SpartanFire.jar "https://www.curseforge.com/minecraft/mc-mods/spartan-weaponry-ice-and-fire/download/3858947"
-          curl -L -o mods/Lycanitesmobs.jar "https://www.curseforge.com/minecraft/mc-mods/lycanites-mobs/download/5982776"
-          curl -L -o mods/firstaid.jar "https://www.curseforge.com/minecraft/mc-mods/first-aid/download/3740166/firstaid-1.9.8.jar"
+          wget -O mods/IceAndFire.jar "https://media.forgecdn.net/files/4614/457/iceandfire-1.16.5-2.1.12.jar"
+          wget -O mods/Create.jar "https://media.forgecdn.net/files/3536/25/create-mc1.16.5_v0.3.2d.jar"
+          wget -O mods/JEI.jar "https://media.forgecdn.net/files/5846/870/jei-1.16.5-7.7.1.152.jar"
+          wget -O mods/SpartanWeaponry.jar "https://media.forgecdn.net/files/5125/478/SpartanWeaponry-1.16.5-2.1.0-beta.jar"
+          wget -O mods/FarmersDelight.jar "https://media.forgecdn.net/files/3765/350/FarmersDelight-1.16.5-0.5.4.jar"
+          wget -O mods/SpartanFire.jar "https://media.forgecdn.net/files/3858/947/SpartanFire-2.1.5.jar"
+          wget -O mods/Lycanitesmobs.jar "https://media.forgecdn.net/files/5982/776/lycanitesmobs-1.16.5-2.0.8.6.jar"
+          wget -O mods/firstaid.jar "https://media.forgecdn.net/files/3740/166/FirstAid-1.9.8.jar"
+
       - name: Commit and Push Changes
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
