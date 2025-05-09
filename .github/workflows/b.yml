@@ -21,15 +21,15 @@ jobs:
 
       - name: Download Mods (excluding OptiFine)
         run: |
-          mkdir -p mods
-          wget -O mods/IceAndFire.jar "https://media.forgecdn.net/files/4614/457/iceandfire-1.16.5-2.1.12.jar"
-          wget -O mods/Create.jar "https://media.forgecdn.net/files/3536/25/create-mc1.16.5_v0.3.2d.jar"
-          wget -O mods/JEI.jar "https://media.forgecdn.net/files/5846/870/jei-1.16.5-7.7.1.152.jar"
-          wget -O mods/SpartanWeaponry.jar "https://media.forgecdn.net/files/5125/478/SpartanWeaponry-1.16.5-2.1.0-beta.jar"
-          wget -O mods/FarmersDelight.jar "https://media.forgecdn.net/files/3765/350/FarmersDelight-1.16.5-0.5.4.jar"
-          wget -O mods/SpartanFire.jar "https://media.forgecdn.net/files/3858/947/SpartanFire-2.1.5.jar"
-          wget -O mods/Lycanitesmobs.jar "https://media.forgecdn.net/files/5982/776/lycanitesmobs-1.16.5-2.0.8.6.jar"
-          wget -O mods/firstaid.jar "https://media.forgecdn.net/files/3740/166/FirstAid-1.9.8.jar"
+          mkdir -p mods && cd mods
+          wget https://media.forgecdn.net/files/4614/457/iceandfire-2.1.12-1.16.5.jar -O IceAndFire.jar
+          wget https://media.forgecdn.net/files/3536/25/create-mc1.16.5_v0.3.2d.jar -O Create.jar
+          wget https://media.forgecdn.net/files/5846/870/jei-1.16.5-7.8.0.1013.jar -O JEI.jar
+          wget https://media.forgecdn.net/files/5125/478/SpartanWeaponry-1.16.5-2.2.2.jar -O SpartanWeaponry.jar
+          wget https://media.forgecdn.net/files/3765/350/FarmersDelight-1.16.5-0.6.0.jar -O FarmersDelight.jar
+          wget https://media.forgecdn.net/files/3858/947/SW_Ice_and_Fire-1.16.5-0.1.3.jar -O SpartanFire.jar
+          wget https://media.forgecdn.net/files/5982/776/lycanitesmobs-1.16.5-2.3.3.7.jar -O Lycanitesmobs.jar
+          wget https://media.forgecdn.net/files/3740/166/FirstAid-1.16.5-1.9.8.jar -O firstaid.jar
 
       - name: Commit and Push Changes
         run: |
