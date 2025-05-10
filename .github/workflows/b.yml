@@ -19,31 +19,23 @@ jobs:
           git config --global user.name "Your Name"
           git config --global user.email "your-email@example.com"
 
-      - name: Download Mods using Python
+      - name: Download Mods (excluding OptiFine)
         run: |
           mkdir -p mods
-          python3 -c "
-import urllib.request
-
-mods = {
-    'IceAndFire.jar': 'https://media.forgecdn.net/files/4614/457/iceandfire-2.1.12-1.16.5.jar',
-    'Create.jar': 'https://media.forgecdn.net/files/3536/25/create-mc1.16.5_v0.3.2d.jar',
-    'JEI.jar': 'https://media.forgecdn.net/files/5846/870/jei-1.16.5-7.8.0.1013.jar',
-    'SpartanWeaponry.jar': 'https://media.forgecdn.net/files/5125/478/SpartanWeaponry-1.16.5-2.2.2.jar',
-    'FarmersDelight.jar': 'https://media.forgecdn.net/files/3765/350/FarmersDelight-1.16.5-0.6.0.jar',
-    'SpartanFire.jar': 'https://media.forgecdn.net/files/3858/947/SW_Ice_and_Fire-1.16.5-0.1.3.jar',
-    'Lycanitesmobs.jar': 'https://media.forgecdn.net/files/5982/776/lycanitesmobs-1.16.5-2.3.3.7.jar',
-    'firstaid.jar': 'https://media.forgecdn.net/files/3740/166/FirstAid-1.16.5-1.9.8.jar'
-}
-
-for name, url in mods.items():
-    print(f'Downloading {name}...')
-    urllib.request.urlretrieve(url, f'mods/{name}')
-"
+          UA="Mozilla/5.0"
+          curl -L -A "$UA" -o mods/IceAndFire.jar "https://media.forgecdn.net/files/4614/457/iceandfire-2.1.12-1.16.5.jar"
+          curl -L -A "$UA" -o mods/Create.jar "https://media.forgecdn.net/files/3419/412/create-mc1.16.5_v0.3.2d.jar"
+          curl -L -A "$UA" -o mods/JEI.jar "https://media.forgecdn.net/files/5846/870/jei-1.16.5-7.9.3.87.jar"
+          curl -L -A "$UA" -o mods/SpartanWeaponry.jar "https://media.forgecdn.net/files/5125/478/SpartanWeaponry-1.16.5-2.1.0-beta.jar"
+          curl -L -A "$UA" -o mods/FarmersDelight.jar "https://media.forgecdn.net/files/3765/350/FarmersDelight-1.16.5-0.5.4.jar"
+          curl -L -A "$UA" -o mods/SpartanFire.jar "https://media.forgecdn.net/files/3858/947/SpartanFire-1.16.5-2.0.3.jar"
+          curl -L -A "$UA" -o mods/Lycanitesmobs.jar "https://media.forgecdn.net/files/5982/776/LycanitesMobs-1.16.5-2.0.8.7.jar"
+          curl -L -A "$UA" -o mods/firstaid.jar "https://media.forgecdn.net/files/3740/166/FirstAid-1.16.5-2.1.6.jar"
 
       - name: Commit and Push Changes
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
+          git pull --rebase origin main || echo "リベース失敗を無視"
           git add .
           git commit -m "Modファイルを更新" || echo "コミットする変更はありません"
           git push origin HEAD:main
