@@ -51,7 +51,7 @@
     "rangedSpeed": 5,
     "effectDuration": 5,
     "effectAmplifier": 0,
-    "pierce": 1,
+    "pierce": 2,
     "sight": 40,
     "knockbackResistance": 1,
 	"bagSize": 5,
