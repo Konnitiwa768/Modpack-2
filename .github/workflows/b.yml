@@ -69,7 +69,13 @@ jobs:
       - name: Commit and Push Changes
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git pull --rebase origin main
-          git add mods
+          
+          # ステージされていない変更を確認し、コミット
+          git add -A
           git commit -m "Modファイルを更新（CurseForge API経由）" || echo "変更はありません"
+
+          # 変更がない場合でも、リベースを実行
+          git pull --rebase origin main
+          
+          # 変更をリモートにプッシュ
           git push origin HEAD:main
