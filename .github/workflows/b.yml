@@ -72,4 +72,4 @@ jobs:
           git pull --rebase origin main
           git add mods
           git commit -m "Modファイルを更新（CurseForge API経由）" || echo "変更はありません"
-          git push origin HEAD:main --rebase
+          git push origin HEAD:main
