@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Key>files/5125/478/SpartanWeaponry-1.16.5-2.1.0-beta.jar</Key><RequestId>244JDYE75QTCES3Z</RequestId><HostId>lhUR+V0Ctn1lQ24w+7igw9k42lpMvEXx+ekeYF8BPpI5PRGBW4dkw5kpE8t2nTo1OB8ug/eWphc=</HostId></Error>
+<Error><Code>AccessDenied</Code><Message>Access Denied</Message></Error>
