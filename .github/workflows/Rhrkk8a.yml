@@ -24,12 +24,12 @@ jobs:
       - name: Change Diamond Sword to Melon Color
         run: |
           # ダイヤモンドグレートソードの色をメロンに変更
-          convert diamond_sword_texture.png -modulate 100,150,120 diamond_sword_texture_melon.png
+          convert diamond_greatsword.png -modulate 100,150,120 diamond_sword_texture_melon.png
 
       - name: Change Diamond Sword to Amethyst Color
         run: |
           # ダイヤモンドグレートソードの色をアメジストに変更
-          convert diamond_sword_texture.png -modulate 100,100,220 diamond_sword_texture_amethyst.png
+          convert diamond_greatsword.png -modulate 100,100,220 diamond_sword_texture_amethyst.png
 
       - name: Commit and Push Changes
         run: |
