@@ -43,16 +43,27 @@ jobs:
             PROJECT_ID="${MODS[$MOD_NAME]}"
             echo "Fetching $MOD_NAME..."
 
+            # 特定バージョンのファイルを取得する場合
+            if [ "$MOD_NAME" == "LycanitesMobs" ]; then
+              VERSION="2.3.3.7"  # Lycanites Mobs のバージョン指定
+            elif [ "$MOD_NAME" == "FirstAid" ]; then
+              VERSION="1.9.8"  # First Aid のバージョン指定
+            else
+              VERSION="1.16.5"
+            fi
+
+            # 最新の 1.16.5 用ファイルを取得
             FILE_ID=$(curl -s -H "x-api-key: $CF_API_KEY" \
               "https://api.curseforge.com/v1/mods/${PROJECT_ID}/files" |
-              jq '.data[] | select(.gameVersions[] | contains("1.16.5")) | .id' |
+              jq ".data[] | select(.gameVersions[] | contains(\"${VERSION}\")) | .id" |
               head -n 1)
 
             if [ -z "$FILE_ID" ]; then
-              echo "No 1.16.5 file found for $MOD_NAME. Skipping..."
+              echo "No ${VERSION} file found for $MOD_NAME. Skipping..."
               continue
             fi
 
+            # ダウンロードURLを取得
             DOWNLOAD_URL=$(curl -s -H "x-api-key: $CF_API_KEY" \
               "https://api.curseforge.com/v1/mods/${PROJECT_ID}/files/${FILE_ID}/download-url" |
               jq -r '.data')
