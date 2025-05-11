@@ -43,18 +43,26 @@ jobs:
             PROJECT_ID="${MODS[$MOD_NAME]}"
             echo "Fetching $MOD_NAME..."
 
-            # 最新の 1.16.5 用ファイルを取得
             FILE_ID=$(curl -s -H "x-api-key: $CF_API_KEY" \
               "https://api.curseforge.com/v1/mods/${PROJECT_ID}/files" |
               jq '.data[] | select(.gameVersions[] | contains("1.16.5")) | .id' |
               head -n 1)
 
-            # ダウンロードURLを取得
+            if [ -z "$FILE_ID" ]; then
+              echo "No 1.16.5 file found for $MOD_NAME. Skipping..."
+              continue
+            fi
+
             DOWNLOAD_URL=$(curl -s -H "x-api-key: $CF_API_KEY" \
               "https://api.curseforge.com/v1/mods/${PROJECT_ID}/files/${FILE_ID}/download-url" |
               jq -r '.data')
 
-            # ダウンロード
+            if [ -z "$DOWNLOAD_URL" ]; then
+              echo "Failed to get download URL for $MOD_NAME (file ID $FILE_ID). Skipping..."
+              continue
+            fi
+
+            echo "Downloading $MOD_NAME from $DOWNLOAD_URL"
             curl -L -A "Mozilla/5.0" -o "mods/${MOD_NAME}.jar" "$DOWNLOAD_URL"
           done
 
