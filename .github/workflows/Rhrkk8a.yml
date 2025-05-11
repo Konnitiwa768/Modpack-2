@@ -18,18 +18,15 @@ jobs:
 
       - name: Download Diamond Sword Texture
         run: |
-          # 正しい生ファイルURLから画像をダウンロード
           curl -O https://raw.githubusercontent.com/ObliviousSpartan/SpartanWeaponry/1.20.1/src/main/resources/assets/spartanweaponry/textures/item/diamond_greatsword.png
 
-      - name: Change Diamond Sword to Melon Color
+      - name: Change Diamond Sword to Melon Color (greenish)
         run: |
-          # 色相をメロン風に変更（緑系強調）
-          convert diamond_greatsword.png -fuzz 10% -fill "#55ff55" -opaque "#a9ffff" diamond_sword_texture_melon.png
+          convert diamond_greatsword.png -modulate 100,130,150 diamond_sword_texture_melon.png
 
-      - name: Change Diamond Sword to Amethyst Color
+      - name: Change Diamond Sword to Amethyst Color (purple)
         run: |
-          # 色相をアメジスト風に変更（紫系強調）
-          convert diamond_greatsword.png -fuzz 10% -fill "#55ffff" -opaque "#a9ffff" diamond_sword_texture_melon.png
+          convert diamond_greatsword.png -modulate 100,180,160 diamond_sword_texture_amethyst.png
 
       - name: Commit and Push Changes
         env:
@@ -44,6 +41,6 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.SECRET_TOKEN }}@github.com/${{ github.repository }}
 
           git add diamond_sword_texture_melon.png diamond_sword_texture_amethyst.png
-          git commit -m "Updated Diamond Sword textures to Melon and Amethyst colors" || echo "No changes to commit"
+          git commit -m "Updated Diamond Sword textures to greenish Melon and purple Amethyst colors" || echo "No changes to commit"
           git pull --rebase origin main
           git push origin HEAD:main
