@@ -1,0 +1,44 @@
+name: Change Diamond Sword Texture Color
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  change_sword_texture:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install ImageMagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+
+      - name: Download Diamond Sword Texture
+        run: |
+          # ダイヤモンドグレートソードのテクスチャをダウンロード
+          curl -O https://github.com/ObliviousSpartan/SpartanWeaponry/blob/1.20.1/src/main/resources/assets/spartanweaponry/textures/item/diamond_greatsword.png
+
+      - name: Change Diamond Sword to Melon Color
+        run: |
+          # ダイヤモンドグレートソードの色をメロンに変更
+          convert diamond_sword_texture.png -modulate 100,150,120 diamond_sword_texture_melon.png
+
+      - name: Change Diamond Sword to Amethyst Color
+        run: |
+          # ダイヤモンドグレートソードの色をアメジストに変更
+          convert diamond_sword_texture.png -modulate 100,100,220 diamond_sword_texture_amethyst.png
+
+      - name: Commit and Push Changes
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.SECRET_TOKEN }}@github.com/${{ github.repository }}
+          
+          # 変更されたテクスチャを追加
+          git add diamond_sword_texture_melon.png diamond_sword_texture_amethyst.png
+          git commit -m "Updated Diamond Sword textures to Melon and Amethyst colors"
+          
+          # リベースを実行して変更をプッシュ
+          git pull --rebase origin main
+          git push origin HEAD:main
