@@ -18,27 +18,29 @@ jobs:
 
       - name: Download Diamond Sword Texture
         run: |
-          # ダイヤモンドグレートソードのテクスチャをダウンロード
-          curl -O https://github.com/ObliviousSpartan/SpartanWeaponry/blob/1.20.1/src/main/resources/assets/spartanweaponry/textures/item/diamond_greatsword.png
+          curl -O https://raw.githubusercontent.com/ObliviousSpartan/SpartanWeaponry/1.20.1/src/main/resources/assets/spartanweaponry/textures/item/diamond_greatsword.png
 
       - name: Change Diamond Sword to Melon Color
         run: |
-          # ダイヤモンドグレートソードの色をメロンに変更
-          convert diamond_greatsword.png -modulate 100,150,120 diamond_sword_texture_melon.png
+          magick convert diamond_greatsword.png -modulate 100,150,120 diamond_sword_texture_melon.png
 
       - name: Change Diamond Sword to Amethyst Color
         run: |
-          # ダイヤモンドグレートソードの色をアメジストに変更
-          convert diamond_greatsword.png -modulate 100,100,220 diamond_sword_texture_amethyst.png
+          magick convert diamond_greatsword.png -modulate 100,100,220 diamond_sword_texture_amethyst.png
 
       - name: Commit and Push Changes
+        env:
+          GIT_AUTHOR_NAME: GitHub Actions
+          GIT_COMMITTER_NAME: GitHub Actions
+          GIT_AUTHOR_EMAIL: actions@github.com
+          GIT_COMMITTER_EMAIL: actions@github.com
         run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
           git remote set-url origin https://x-access-token:${{ secrets.SECRET_TOKEN }}@github.com/${{ github.repository }}
-          
-          # 変更されたテクスチャを追加
+
           git add diamond_sword_texture_melon.png diamond_sword_texture_amethyst.png
-          git commit -m "Updated Diamond Sword textures to Melon and Amethyst colors"
-          
-          # リベースを実行して変更をプッシュ
+          git commit -m "Updated Diamond Sword textures to Melon and Amethyst colors" || echo "No changes to commit"
           git pull --rebase origin main
           git push origin HEAD:main
