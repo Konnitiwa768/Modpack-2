@@ -22,7 +22,7 @@ jobs:
 
       - name: Change Diamond Sword to Melon Color (greenish)
         run: |
-          convert diamond_greatsword.png -modulate 100,130,150 diamond_sword_texture_melon.png
+          convert diamond_greatsword.png -modulate 100,100,160 diamond_sword_texture_melon.png
 
       - name: Change Diamond Sword to Amethyst Color (purple)
         run: |
