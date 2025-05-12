@@ -23,7 +23,7 @@ jobs:
       - name: Generate Leafeau Textures
         run: |
           # 通常種（黄色）
-          convert zephyr.png -fill "#ffff00" -colorize 30% leafeau.png
+          convert zephyr.png -fill "#ffff00" -colorize 30% skycleave.png
           
           # 亜種1（灰色）
           convert zephyr.png -fill "#999999" -colorize 60% skycleave_ashen.png
@@ -32,18 +32,7 @@ jobs:
           convert zephyr.png -fill "#009999" -colorize 60% skycleave_violet.png
 
       - name: Commit and Push Changes
-        env:
-          GIT_AUTHOR_NAME: GitHub Actions
-          GIT_COMMITTER_NAME: GitHub Actions
-          GIT_AUTHOR_EMAIL: actions@github.com
-          GIT_COMMITTER_EMAIL: actions@github.com
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-
-          git remote set-url origin https://x-access-token:${{ secrets.SECRET_TOKEN }}@github.com/${{ github.repository }}
-
-          git add skycleave_ashen.png skycleave_violet.png
-          git commit -m "Generate SkyCleave  textures from Zephyr base" || echo "No changes to commit"
-          git pull --rebase origin main
+          git add skycleave.png skycleave_ashen.png skycleave_violet.png
+          git commit -m "Generate SkyCleave textures from Zephyr base" || echo "No changes to commit"
+          git pull --rebase origin main || echo "Pull failed (likely no need)"
           git push origin HEAD:main
