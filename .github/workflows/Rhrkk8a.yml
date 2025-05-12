@@ -20,9 +20,9 @@ jobs:
         run: |
           curl -O https://raw.githubusercontent.com/ObliviousSpartan/SpartanWeaponry/1.20.1/src/main/resources/assets/spartanweaponry/textures/item/diamond_greatsword.png
 
-      - name: Change Diamond Sword to Melon Color (greenish)
+      - name: Change Diamond Sword to Melon Color (yellow-green)
         run: |
-          convert diamond_greatsword.png -modulate 100,100,100 diamond_sword_texture_melon.png
+          convert diamond_greatsword.png -modulate 100,95,160 diamond_sword_texture_melon.png
 
       - name: Change Diamond Sword to Amethyst Color (purple)
         run: |
@@ -41,6 +41,6 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.SECRET_TOKEN }}@github.com/${{ github.repository }}
 
           git add diamond_sword_texture_melon.png diamond_sword_texture_amethyst.png
-          git commit -m "Updated Diamond Sword textures to greenish Melon and purple Amethyst colors" || echo "No changes to commit"
+          git commit -m "Updated Diamond Sword textures to yellow-green Melon and purple Amethyst colors" || echo "No changes to commit"
           git pull --rebase origin main
           git push origin HEAD:main
