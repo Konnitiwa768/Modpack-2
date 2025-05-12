@@ -18,15 +18,15 @@ jobs:
 
       - name: Download Diamond Sword Texture
         run: |
-          curl -O https://raw.githubusercontent.com/ObliviousSpartan/SpartanWeaponry/1.20.1/src/main/resources/assets/spartanweaponry/textures/item/diamond_greatsword.png
+          curl -O https://raw.githubusercontent.com/ObliviousSpartan/SpartanWeaponry/1.20.1/src/main/resources/assets/spartanweaponry/textures/item/diamond_saber.png
 
       - name: Change Diamond Sword to Melon Color
         run: |
-          convert diamond_greatsword.png -fill "#a8e05f" -colorize 60% diamond_sword_texture_melon.png
+          convert diamond_saber.png -fill "#a8e05f" -colorize 60% saber_melon.png
 
       - name: Change Diamond Sword to Amethyst Color
         run: |
-          convert diamond_greatsword.png -fill "#9966cc" -colorize 60% diamond_sword_texture_amethyst.png
+          convert diamond_saber.png -fill "#9966cc" -colorize 60% saber_amethyst.png
 
       - name: Commit and Push Changes
         env:
@@ -40,7 +40,7 @@ jobs:
 
           git remote set-url origin https://x-access-token:${{ secrets.SECRET_TOKEN }}@github.com/${{ github.repository }}
 
-          git add diamond_sword_texture_melon.png diamond_sword_texture_amethyst.png
-          git commit -m "Force recolor: Melon (green) and Amethyst (purple) Diamond Sword textures" || echo "No changes to commit"
+          git add saber_melon.png saber_amethyst.png
+          git commit -m "Force recolor: Melon (green) and Amethyst (purple) Diamond Saber textures" || echo "No changes to commit"
           git pull --rebase origin main
           git push origin HEAD:main
