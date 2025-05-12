@@ -18,18 +18,18 @@ jobs:
 
       - name: Download Crusk Texture
         run: |
-          curl -O https://gitlab.com/Lycanite/LycanitesMobs/-/raw/2.3.3.3/src/main/resources/assets/lycanitesmobs/textures/entity/crusk.png
+          curl -O https://gitlab.com/Lycanite/LycanitesMobs/-/raw/2.3.3.3/src/main/resources/assets/lycanitesmobs/textures/entity/zephyr.png
 
       - name: Generate Leafeau Textures
         run: |
-          # 通常種（緑）
-          convert crusk.png -fill "#66ff66" -colorize 60% leafeau.png
+          # 通常種（黄色）
+          convert zephyr.png -fill "#ffff00" -colorize 30% leafeau.png
           
-          # 亜種1（azure - 青）
-          convert crusk.png -fill "#3399ff" -colorize 60% leafeau_azure.png
+          # 亜種1（灰色）
+          convert zephyr.png -fill "#999999" -colorize 60% skycleave_ashen.png
           
-          # 亜種2（golden - 金）
-          convert crusk.png -fill "#ffcc33" -colorize 60% leafeau_golden.png
+          # 亜種2（紫）
+          convert zephyr.png -fill "#009999" -colorize 60% skycleave_violet.png
 
       - name: Commit and Push Changes
         env:
@@ -43,7 +43,7 @@ jobs:
 
           git remote set-url origin https://x-access-token:${{ secrets.SECRET_TOKEN }}@github.com/${{ github.repository }}
 
-          git add leafeau.png leafeau_azure.png leafeau_golden.png
-          git commit -m "Generate Leafeau textures from Crusk base" || echo "No changes to commit"
+          git add skycleave_ashen.png skycleave_violet.png
+          git commit -m "Generate SkyCleave  textures from Zephyr base" || echo "No changes to commit"
           git pull --rebase origin main
           git push origin HEAD:main
