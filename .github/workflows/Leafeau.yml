@@ -29,7 +29,7 @@ jobs:
           convert zephyr.png -fill "#999999" -colorize 60% skycleave_ashen.png
           
           # 亜種2（青緑）
-          convert zephyr.png -fill "#009999" -colorize 60% skycleave_violet.png
+          convert zephyr.png -fill "#990099" -colorize 60% skycleave_violet.png
 
       - name: Commit and Push Changes
         env:
