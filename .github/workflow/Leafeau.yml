@@ -1,0 +1,49 @@
+name: Generate Leafeau Textures
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate_leafeau_textures:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install ImageMagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+
+      - name: Download Crusk Texture
+        run: |
+          curl -O https://gitlab.com/Lycanite/LycanitesMobs/-/raw/2.3.3.3/src/main/resources/assets/lycanitesmobs/textures/entity/crusk.png
+
+      - name: Generate Leafeau Textures
+        run: |
+          # 通常種（緑）
+          convert crusk.png -fill "#66ff66" -colorize 60% leafeau.png
+          
+          # 亜種1（azure - 青）
+          convert crusk.png -fill "#3399ff" -colorize 60% leafeau_azure.png
+          
+          # 亜種2（golden - 金）
+          convert crusk.png -fill "#ffcc33" -colorize 60% leafeau_golden.png
+
+      - name: Commit and Push Changes
+        env:
+          GIT_AUTHOR_NAME: GitHub Actions
+          GIT_COMMITTER_NAME: GitHub Actions
+          GIT_AUTHOR_EMAIL: actions@github.com
+          GIT_COMMITTER_EMAIL: actions@github.com
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          git remote set-url origin https://x-access-token:${{ secrets.SECRET_TOKEN }}@github.com/${{ github.repository }}
+
+          git add leafeau.png leafeau_azure.png leafeau_golden.png
+          git commit -m "Generate Leafeau textures from Crusk base" || echo "No changes to commit"
+          git pull --rebase origin main
+          git push origin HEAD:main
