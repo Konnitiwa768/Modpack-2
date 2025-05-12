@@ -52,16 +52,21 @@ EntityEvents.spawned(event => {
   const worldLevel = event.level.persistentData.getInt('world_difficulty') || 1;
   const inflationActive = entity.level.persistentData.getBoolean('inflation_active') ?? true;
 
+  // 最大レベルに基づく敵レベルの設定
   const enemyLevel = Math.min(2147483647, Math.floor(Math.pow(worldLevel, 1.5))); // 最大値は2,147,648,347
 
-  if (inflationActive) {
-    entity.maxHealth += 10 * math.pow(3.6, enemyLevel); // インフレ時にはHP2倍
-    entity.persistentData.putInt("enemy_level", enemyLevel * 2); // インフレ分レベル増加
-  } else {
-    entity.maxHealth += 10 * enemyLevel; // 通常のHP
-  }
+  // モブの元々のHP取得
+  const baseHealth = entity.getHealth(); // モブの基本HPを取得
 
-  entity.health = entity.maxHealth;
+  // ======= インフレ適用 =======
+  let healthMultiplier = inflationActive ? 2 : 1; // インフレが有効な場合2倍
+  let adjustedHealth = baseHealth * healthMultiplier * Math.pow(2, enemyLevel / 10); // レベルに応じて増加
+
+  // モブの新しいHPの設定
+  entity.maxHealth = adjustedHealth;
+  entity.health = adjustedHealth;
+
+  // モブの名前をレベルに応じて変更
   entity.customName = `Lv${enemyLevel} ${entity.displayName}`;
   entity.customNameVisible = true;
 });
@@ -72,6 +77,7 @@ PlayerEvents.tick(event => {
   const level = player.persistentData.getInt('hp_level') || 1;
   const inflationActive = player.persistentData.getBoolean('inflation_active') ?? true;
 
+  // 新しいHPを計算
   const newHP = 20 * hpMultiplier(level - 1);
   if (player.maxHealth !== newHP) player.setMaxHealth(newHP);
 
