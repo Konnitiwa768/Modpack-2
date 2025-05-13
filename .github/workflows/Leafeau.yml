@@ -18,18 +18,18 @@ jobs:
 
       - name: Download Zephyr Texture
         run: |
-          curl -O https://gitlab.com/Lycanite/LycanitesMobs/-/raw/2.3.3.3/src/main/resources/assets/lycanitesmobs/textures/entity/zephyr.png
+          curl -O https://gitlab.com/Lycanite/LycanitesMobs/-/raw/2.3.3.3/src/main/resources/assets/lycanitesmobs/textures/entity/cinder.png
 
       - name: Generate Leafeau Textures
         run: |
-          # 通常種（黄色）
-          convert zephyr.png -fill "#ffff00" -colorize 30% skycleave.png
+          # 通常種
+          convert cinder.png -fill "#666666" -colorize 60% infernality.png
           
-          # 亜種1（灰色）
-          convert zephyr.png -fill "#999999" -colorize 60% skycleave_ashen.png
+          # 亜種1（青）
+          convert cinder.png -fill "#000066" -colorize 60% infernality_azure.png
           
-          # 亜種2（青緑）
-          convert zephyr.png -fill "#990099" -colorize 60% skycleave_violet.png
+          # 亜種2（緑）
+          convert cinder.png -fill "#006600" -colorize 60% infernality_verdant.png
 
       - name: Commit and Push Changes
         env:
@@ -42,7 +42,7 @@ jobs:
           git config --global user.email "actions@github.com"
           git remote set-url origin https://x-access-token:${{ secrets.SECRET_TOKEN }}@github.com/${{ github.repository }}
 
-          git add skycleave.png skycleave_ashen.png skycleave_violet.png
-          git commit -m "Generate SkyCleave textures from Zephyr base" || echo "No changes to commit"
+          git add infernality.png infernality_azure.png infernality_verdant.png
+          git commit -m "Generate Infernality textures from Cinder base" || echo "No changes to commit"
           git pull --rebase origin main || echo "Pull failed (likely due to conflicts or clean state)"
           git push origin HEAD:main
