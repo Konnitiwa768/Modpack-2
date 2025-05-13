@@ -63,6 +63,7 @@ ServerEvents.tick(event => {
       if (projectile != null) {
         projectile.setDeltaMovement(dx * speed, dy * speed, dz * speed)
         projectile.owner = ignium
+        projectile.setDamage(2)  // 玉のダメージ設定（2ダメージ）
       }
     }
     return true
@@ -79,18 +80,19 @@ EntityEvents.death(event => {
 
   // ドロップアイテム、確率、個数の設定
   const dropItems = [
-    { id: "minecraft:netherite_ingot", chance: 0.1, amount: 5 },  // 10%で5個
-    { id: "minecraft:blaze_rod", chance: 0.9, amount: 8 },         // 90%で8個
-    { id: "minecraft:enchanted_golden_apple", chance: 0.2, amount: 3 },  // 20%で1個
-    { id: "minecraft:diamond_block", chance: 0.34, amount: 7 },    // 34%で1個
-    { id: "minecraft:totem_of_undying", chance: 0.05, amount: 1 }, // 5%で1個
-    { id: "minecraft:fire_charge", chance: 0.3, amount: 5 }        // 30%で5個
+    { id: "minecraft:netherite_ingot", chance: 0.5, minAmount: 1, maxAmount: 2 },  // 50%で1〜2個
+    { id: "minecraft:blaze_rod", chance: 0.6, minAmount: 2, maxAmount: 4 },         // 60%で2〜4個
+    { id: "minecraft:enchanted_golden_apple", chance: 0.3, minAmount: 1, maxAmount: 1 },  // 30%で1個
+    { id: "minecraft:diamond_block", chance: 0.7, minAmount: 1, maxAmount: 1 },    // 70%で1個
+    { id: "minecraft:totem_of_undying", chance: 0.5, minAmount: 1, maxAmount: 1 }, // 50%で1個
+    { id: "minecraft:fire_charge", chance: 0.8, minAmount: 3, maxAmount: 6 }        // 80%で3〜6個
   ]
 
   // 確率と個数に基づいてアイテムをドロップ
   dropItems.forEach(item => {
     if (Math.random() < item.chance) {
-      for (let i = 0; i < item.amount; i++) {
+      const amount = Math.floor(Math.random() * (item.maxAmount - item.minAmount + 1)) + item.minAmount
+      for (let i = 0; i < amount; i++) {
         level.spawnItem(item.id, pos.x + 0.5, pos.y + 1, pos.z + 0.5)
       }
     }
