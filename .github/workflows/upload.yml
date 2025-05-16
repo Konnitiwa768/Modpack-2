@@ -38,6 +38,7 @@ jobs:
             [LycanitesMobs]=224770
             [FirstAid]=276837
             [Undergarden]=379849
+            [Apotheosis]=313970
           )
 
           for MOD_NAME in "${!MODS[@]}"; do
@@ -45,12 +46,8 @@ jobs:
             echo "Fetching $MOD_NAME..."
 
             # モッドのバージョン指定
-            if [ "$MOD_NAME" == "LycanitesMobs" ]; then
-              MOD_VERSION="2.3.3.7"  # Lycanites Mobsのバージョン指定
-            elif [ "$MOD_NAME" == "FirstAid" ]; then
-              MOD_VERSION="1.9.8"  # First Aidのバージョン指定
-            elif [ "$MOD_NAME" == "Undergarden" ]; then
-              MOD_VERSION="0.5.5"  # Undergardenのバージョン指定
+            if [ "$MOD_NAME" == "Apotheosis" ]; then
+              MOD_VERSION="1.16.5"  # Lycanites Mobsのバージョン指定
             else
               MOD_VERSION="latest"
             fi
